@@ -115,3 +115,7 @@ html, body {
     text-align: center;
     font-size: 30px;
 }
+
+.search-box {
+  border: none; /* Remove border */
+}
