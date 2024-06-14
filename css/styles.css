@@ -42,18 +42,7 @@ html, body {
     cursor: pointer;
     background-color: white;
     position: relative;
-}
-
-.book-box::before, .chapter-box::before, .verse-box::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 40px 40px 0;
-    border-color: transparent #000 transparent transparent; /* Change #000 to your desired corner color */
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%);
 }
 
 .vignette {
