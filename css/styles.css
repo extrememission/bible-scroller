@@ -112,5 +112,4 @@ html, body {
     flex-direction: column;
     text-align: center;
     font-size: 20px;
-    border: 6px solid black; /* Add this line for the black outline */
 }
