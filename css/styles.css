@@ -41,10 +41,23 @@ html, body {
     cursor: pointer;
     background-color: white;
     border-radius: 0;
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
     position: relative;
-    z-index: 1; /* Ensure text stays on top of the vignette */
-    border: 2px solid black; /* Add this line for the black outline */
+    z-index: 1;
+    border: 2px solid black; /* Border for all sides */
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+
+/* Pseudo-element to create a cut corner effect */
+.book-box::before, .chapter-box::before, .verse-box::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 0 0 20px;
+    border-color: transparent transparent transparent black; /* Adjust for desired color */
 }
 
 .verse-box.enlarged {
@@ -112,4 +125,5 @@ html, body {
     flex-direction: column;
     text-align: center;
     font-size: 20px;
+    border: 2px solid black; /* Add this line for the black outline */
 }
