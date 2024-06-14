@@ -44,6 +44,7 @@ html, body {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
     position: relative;
     z-index: 1; /* Ensure text stays on top of the vignette */
+    border: 2px solid black; /* Add this line for the black outline */
 }
 
 .verse-box.enlarged {
@@ -111,4 +112,5 @@ html, body {
     flex-direction: column;
     text-align: center;
     font-size: 20px;
+    border: 2px solid black; /* Add this line for the black outline */
 }
