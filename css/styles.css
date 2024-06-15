@@ -5,6 +5,7 @@ body {
     margin: 0;
     padding: 0;
     scrollbar-width: none;  /* Firefox */
+    background-color: #2d2d2d;  /* Dark gray background */
 }
 
 /* Hide scrollbar for Chrome, Safari, and Opera */
@@ -20,6 +21,7 @@ html, body {
     display: block;
     align-items: center;
     text-align: center;
+    background-color: #2d2d2d;  /* Dark gray background */
 }
 
 .container {
@@ -29,6 +31,7 @@ html, body {
     padding: 10px;
     margin: 5px;
     max-width: none;
+    background-color: #2d2d2d;  /* Dark gray background */
 }
 
 .book-box, .chapter-box, .verse-box, .search-box {
