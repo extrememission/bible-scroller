@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add RELOAD button
     const reloadBox = document.createElement('div');
     reloadBox.classList.add('reload-box');
-    reloadBox.textContent = 'RELOAD';
+    reloadBox.textContent = 'Back to the Books of the Bible';
     reloadBox.addEventListener('click', showBooksWindow);
     chaptersContainer.appendChild(reloadBox);
 
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Add RELOAD button
         const reloadBox = document.createElement('div');
         reloadBox.classList.add('reload-box');
-        reloadBox.textContent = 'RELOAD';
+        reloadBox.textContent = 'Back to the Books of the Bible';
         reloadBox.addEventListener('click', showBooksWindow);
         versesContainer.appendChild(reloadBox);
 
