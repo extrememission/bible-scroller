@@ -69,7 +69,6 @@ html, body {
     margin: 20px 0;
     background-color: black;
     color: #61FF00;
-    font-weight: bold;
     cursor: pointer;
 }
 
@@ -91,7 +90,7 @@ html, body {
     padding: 20px;
     border-radius: 10px;
     max-width: 600px;
-    width: 90%;
+    width: 85%;
     max-height: 90%;
     overflow-y: auto; /* Enable vertical scrolling */
     position: relative; /* Ensure relative positioning for absolute child */
@@ -99,10 +98,10 @@ html, body {
 
 .close-btn {
     position: absolute;
-    top: 10px;
+    top: 5px;
     right: 10px;
     cursor: pointer;
-    font-size: 30px;
+    font-size: 40px;
     color: black;
 }
 
