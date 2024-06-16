@@ -103,7 +103,7 @@ html, body {
     right: 10px;
     cursor: pointer;
     font-size: 30px;
-    font-weight: bold;
+    color: black;
 }
 
 .search-field-box, .begin-search-box {
@@ -116,5 +116,5 @@ html, body {
     background-color: black;
     flex-direction: column;
     text-align: center;
-    font-size: 30px;
+    font-size: 25px;
 }
