@@ -170,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const verseText = verseBox.textContent.trim();
         const referenceMatch = verseText.match(/\(.*:\d+\)/);
         let reference = "";
-
         if (referenceMatch) {
           reference = referenceMatch[0].slice(1, -1);
         } else {
