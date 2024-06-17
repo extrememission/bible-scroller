@@ -104,7 +104,7 @@ html, body {
     right: 10px;
     cursor: pointer;
     font-size: 40px;
-    color: black;
+    color: black !important;
 }
 
 .search-field-box, .begin-search-box {
