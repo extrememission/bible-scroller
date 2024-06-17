@@ -100,8 +100,8 @@ html, body {
 
 .close-btn {
     position: absolute;
-    top: 5px;
-    right: 10px;
+    top: 5px !important;
+    right: 5px !important;
     cursor: pointer;
     font-size: 40px;
     color: black !important;
