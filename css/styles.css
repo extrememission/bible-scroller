@@ -71,8 +71,7 @@ html, body {
     color: #61FF00;
     cursor: pointer;
     text-align: center;
-    font-size: 12px; /* Add this line for font size */
-    font-family: Impact; /* Add this line for font family */
+    font-size: 20px;
 }
 
 .modal {
