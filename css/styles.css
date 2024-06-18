@@ -118,3 +118,19 @@ html, body {
     text-align: center;
     font-size: 25px;
 }
+/* Vignette effect */
+.vignette {
+    position: relative;
+    overflow: hidden;
+}
+
+.vignette::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle, transparent, rgba(0, 0, 0, 0.5));
+    pointer-events: none;
+}
