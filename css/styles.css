@@ -21,7 +21,7 @@ html, body {
     display: block;
     align-items: center;
     text-align: center;
-    background-color: #2d2d2d;  /* Dark gray background */
+    background-color: #2d2d2d;
 }
 
 .container {
@@ -31,14 +31,13 @@ html, body {
     padding: 10px;
     margin: 5px;
     max-width: none;
-    background-color: #FFF7E4;  /* Dark gray background */
+    background-color: #FFF7E4; 
 }
 
 #books, #chapters, #verses {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border-radius: 10;
 }
 
 .book-box, .chapter-box, .verse-box, .search-box {
@@ -120,6 +119,7 @@ html, body {
 .vignette {
     position: relative;
     overflow: hidden;
+    border-radius: 10px; /* Added border-radius to vignette */
 }
 
 .vignette::before {
@@ -131,4 +131,5 @@ html, body {
     bottom: 0;
     background: radial-gradient(circle, transparent, rgba(0, 0, 0, 0.5));
     pointer-events: none;
+    border-radius: 10px; /* Ensure the vignette has rounded corners */
 }
