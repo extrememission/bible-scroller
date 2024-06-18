@@ -55,10 +55,6 @@ html, body {
     box-shadow: none; /* Remove any box shadow */
 }
 
-.book-box:focus, .chapter-box:focus, .verse-box:focus, .search-box:focus {
-    outline: none; /* Remove the default focus outline */
-}
-
 .reload-box {
     display: flex;
     justify-content: center;
@@ -71,6 +67,7 @@ html, body {
     cursor: pointer;
     text-align: center;
     font-size: 20px;
+    border-radius: 10px;
 }
 
 .modal {
