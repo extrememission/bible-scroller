@@ -114,13 +114,6 @@ html, body {
     font-size: 25px;
 }
 
-.search-field {
-    text-align: center; /* Center-align text in the search box */
-    background-color: #ffffff; /* Add your desired background color */
-    border: none; /* Remove the default border */
-    outline: none; /* Remove the outline */
-
-/* Vignette effect */
 .vignette {
     position: relative;
     overflow: hidden;
