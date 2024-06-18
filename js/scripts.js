@@ -206,9 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultsContainer = document.getElementById('search-results');
     resultsContainer.innerHTML = '';
 
-     resultsContainer.style.display = 'none';
-    let hasResults = false;
-
     books.forEach(book => {
       const filePath = `data/${book.book}.json`;
       fetch(filePath)
