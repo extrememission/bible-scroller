@@ -29,9 +29,8 @@ html, body {
     flex-direction: column;
     justify-content: center;
     padding: 10px;
-    margin: 5px;
+    margin: 10px;
     max-width: none;
-    background-color: #FFF7E4; 
 }
 
 #books, #chapters, #verses {
