@@ -38,6 +38,7 @@ html, body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    border-radius: 10;
 }
 
 .book-box, .chapter-box, .verse-box, .search-box {
