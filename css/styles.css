@@ -114,6 +114,10 @@ html, body {
     font-size: 25px;
 }
 
+search-field-box input#search-field {
+    text-align: center;
+}
+
 .vignette {
     position: relative;
     overflow: hidden;
