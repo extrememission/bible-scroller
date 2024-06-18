@@ -96,8 +96,10 @@ html, body {
 
 .close-btn {
     position: absolute;
+    top: 5px !important; /* Distance from the top of the container */
+    right: 5px !important; /* Distance from the right of the container */
     cursor: pointer;
-    font-size: 40px;
+    font-size: 25px;
     color: black !important;
 }
 
