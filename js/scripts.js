@@ -203,23 +203,8 @@ function copyVerseToPhotos(verseBox, event) {
         const chapterNumber = parseInt(chapterVerse[0]);
         const verseNumber = parseInt(chapterVerse[1]);
 
-        // Check if clicked from search results
-        if (event.target.closest('#search-results')) {
-          // Navigate to the verse in context
-          navigateToVerse(bookName, chapterNumber, verseNumber);
-        } else {
-          // Convert to image
-          const filename = `${reference}.png`;
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = filename;
-          a.style.display = 'none';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        }
+        // Navigate to the verse in context
+        navigateToVerse(bookName, chapterNumber, verseNumber);
       } else {
         console.warn("Verse reference not found in verseBox content.");
       }
