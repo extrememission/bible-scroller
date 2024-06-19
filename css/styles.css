@@ -134,4 +134,5 @@ search-field-box input#search-field {
     background: radial-gradient(circle, transparent, rgba(255, 255, 255, 0.5));
     pointer-events: none;
     border-radius: 10px; /* Ensure the vignette has rounded corners */
+    z-index: -1;
 }
