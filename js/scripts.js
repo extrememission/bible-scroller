@@ -140,7 +140,12 @@ document.addEventListener("DOMContentLoaded", () => {
           reference.classList.add('reference');
           verseBox.appendChild(reference);
 
-          verseBox.addEventListener('click', () => copyVerseToPhotos(verseBox));
+          if (!versesContainer.classList.contains('search-results')) {
+            verseBox.addEventListener('click', () => copyVerseToPhotos(verseBox));
+          } else {
+            verseBox.addEventListener('click', () => showVerseInChapter(bookName, chapterNumber));
+          }
+
           versesContainer.appendChild(verseBox);
         });
 
@@ -197,7 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('close-modal-btn').addEventListener('click', hideSearchModal);
   }
 
-    function hideSearchModal() {
+  function hideSearchModal() {
     document.getElementById('search-modal').style.display = 'none';
   }
 
@@ -206,6 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const resultsContainer = document.getElementById('search-results');
     resultsContainer.innerHTML = '';
 
+    // Loop through books to perform search
     books.forEach(book => {
       const filePath = `data/${book.book}.json`;
       fetch(filePath)
@@ -215,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
             chapter.verses.forEach((verse, index) => {
               if (verse.text.toLowerCase().includes(searchTerm)) {
                 const verseBox = document.createElement('div');
-                verseBox.classList.add('verse-box', 'vignette');
+                verseBox.classList.add('verse-box', 'vignette', 'search-result'); // Add search-result class
                 verseBox.textContent = `${verse.text}`;
                 const color = getRandomColor();
                 verseBox.style.backgroundColor = color;
@@ -288,4 +294,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector('.begin-search-box').addEventListener('click', performSearch);
 
   createBookOptions();
+
 }); // End of DOMContentLoaded listener
+
