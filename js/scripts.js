@@ -73,36 +73,26 @@ document.addEventListener("DOMContentLoaded", () => {
   function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
   }
-  
-  function navigateToVerse(bookName, chapterNumber, verseNumber) {
-    // Show the chapters window for the selected book
-    const selectedBook = books.find(book => book.book === bookName);
-    if (!selectedBook) {
-      console.error(`Book '${bookName}' not found in the list.`);
-      return;
-    }
-    
-    showChapters(selectedBook);
 
-    // Modify click event listener for chapter boxes
+  function navigateToVerse(bookName, chapterNumber, verseNumber) {
+    showChapters(bookName);
+
     const chapterBoxes = document.querySelectorAll('.chapter-box');
     chapterBoxes.forEach(chapterBox => {
-      chapterBox.removeEventListener('click', chapterClickHandler); // Remove old listener
-      chapterBox.addEventListener('click', chapterClickHandler); // Add new listener
+      chapterBox.removeEventListener('click', showVerses);
+      chapterBox.addEventListener('click', () => {
+        const clickedChapter = parseInt(chapterBox.textContent.split(" ")[1]);
+        if (clickedChapter === chapterNumber) {
+          showVerses(bookName, chapterNumber);
+        }
+      });
     });
-
-    function chapterClickHandler() {
-      const clickedChapter = parseInt(this.textContent.split(" ")[1]);
-      if (clickedChapter === chapterNumber) {
-        showVerses(bookName, chapterNumber);
-      }
-    }
   }
 
   function createBookOptions() {
     const booksContainer = document.getElementById('books');
     booksContainer.innerHTML = '';
-    books.forEach((book, index) => {
+    books.forEach(book => {
       const bookBox = document.createElement('div');
       bookBox.classList.add('book-box', 'vignette');
       bookBox.textContent = book.book;
@@ -132,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
       chaptersContainer.appendChild(chapterBox);
     }
 
-    // Add RELOAD button
     const reloadBox = document.createElement('div');
     reloadBox.classList.add('reload-box');
     reloadBox.textContent = 'Back to the Books of the Bible';
@@ -149,13 +138,13 @@ document.addEventListener("DOMContentLoaded", () => {
     fetch(filePath)
       .then(response => response.json())
       .then(data => {
-        const bookData = data.chapters.find(chapter => chapter.chapter == chapterNumber);
+        const bookData = data.chapters.find(chapter => chapter.chapter === chapterNumber);
         const versesContainer = document.getElementById('verses');
         versesContainer.innerHTML = '';
-        bookData.verses.forEach((verse, index) => {
+        bookData.verses.forEach(verse => {
           const verseBox = document.createElement('div');
           verseBox.classList.add('verse-box', 'vignette');
-          verseBox.textContent = `${verse.text}`;
+          verseBox.textContent = verse.text;
           const color = getRandomColor();
           verseBox.style.backgroundColor = color;
           verseBox.style.setProperty('--vignette-color', color);
@@ -165,11 +154,16 @@ document.addEventListener("DOMContentLoaded", () => {
           reference.classList.add('reference');
           verseBox.appendChild(reference);
 
-          verseBox.addEventListener('click', () => copyVerseToPhotos(verseBox));
+          verseBox.addEventListener('click', () => {
+            if (versesContainer.classList.contains('search-results')) {
+              showVerses(bookName, chapterNumber); // Display verse in context
+            } else {
+              copyVerseToPhotos(verseBox); // Convert verse to image
+            }
+          });
           versesContainer.appendChild(verseBox);
         });
 
-        // Add RELOAD button
         const reloadBox = document.createElement('div');
         reloadBox.classList.add('reload-box');
         reloadBox.textContent = 'Back to the Books of the Bible';
@@ -179,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         versesContainer.scrollTop = 0;
         document.getElementById('chapters').style.display = 'none';
         versesContainer.style.display = 'block';
+        versesContainer.classList.remove('search-results'); // Remove search-results class
       })
       .catch(error => console.error('Error fetching data:', error));
   }
@@ -189,29 +184,27 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('verses').style.display = 'none';
   }
 
-function copyVerseToPhotos(verseBox, event) {
-  html2canvas(verseBox).then(canvas => {
-    canvas.toBlob(blob => {
-      const verseText = verseBox.textContent.trim();
-      const referenceMatch = verseText.match(/\(.*:\d+\)/);
-      let reference = "";
-      if (referenceMatch) {
-        reference = referenceMatch[0].slice(1, -1);
-        // Extract chapter and verse from reference
-        const chapterVerse = reference.split(":");
-        const bookName = document.getElementById('books').textContent.trim(); // Assuming book name is displayed somewhere
-        const chapterNumber = parseInt(chapterVerse[0]);
-        const verseNumber = parseInt(chapterVerse[1]);
-
-        // Navigate to the verse in context
-        navigateToVerse(bookName, chapterNumber, verseNumber);
-      } else {
-        console.warn("Verse reference not found in verseBox content.");
-      }
+  function copyVerseToPhotos(verseBox) {
+    html2canvas(verseBox).then(canvas => {
+      canvas.toBlob(blob => {
+        const verseText = verseBox.textContent.trim();
+        const referenceMatch = verseText.match(/\(.*:\d+\)/);
+        let reference = "verse_image.png"; // Default filename
+        if (referenceMatch) {
+          reference = referenceMatch[0].slice(1, -1).replace(/ /g, "_") + ".png"; // Adjust filename
+        }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = reference;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
     });
-  });
-}
-
+  }
 
   function showSearchModal() {
     document.getElementById('search-modal').style.display = 'flex';
@@ -233,11 +226,11 @@ function copyVerseToPhotos(verseBox, event) {
         .then(response => response.json())
         .then(data => {
           data.chapters.forEach(chapter => {
-            chapter.verses.forEach((verse, index) => {
+            chapter.verses.forEach(verse => {
               if (verse.text.toLowerCase().includes(searchTerm)) {
                 const verseBox = document.createElement('div');
-                verseBox.classList.add('verse-box', 'vignette');
-                verseBox.textContent = `${verse.text}`;
+                verseBox.classList.add('verse-box', 'vignette', 'search-result');
+                verseBox.textContent = verse.text;
                 const color = getRandomColor();
                 verseBox.style.backgroundColor = color;
                 verseBox.style.setProperty('--vignette-color', color);
@@ -247,7 +240,11 @@ function copyVerseToPhotos(verseBox, event) {
                 reference.classList.add('reference');
                 verseBox.appendChild(reference);
 
-                verseBox.addEventListener('click', () => copyVerseToPhotos(verseBox));
+                verseBox.addEventListener('click', () => {
+                  showVerses(book.book, chapter.chapter); // Show verse in context
+                  document.getElementById('verses').classList.add('search-results');
+                });
+
                 resultsContainer.appendChild(verseBox);
               }
             });
