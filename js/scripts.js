@@ -74,23 +74,30 @@ document.addEventListener("DOMContentLoaded", () => {
     return colors[Math.floor(Math.random() * colors.length)];
   }
   
-function navigateToVerse(bookName, chapterNumber, verseNumber) {
-  // 1. Show the chapters window
-  showChapters(bookName);
+  function navigateToVerse(bookName, chapterNumber, verseNumber) {
+    // Show the chapters window for the selected book
+    const selectedBook = books.find(book => book.book === bookName);
+    if (!selectedBook) {
+      console.error(`Book '${bookName}' not found in the list.`);
+      return;
+    }
+    
+    showChapters(selectedBook);
 
-  // 2. Modify click event listener for chapter boxes
-  const chapterBoxes = document.querySelectorAll('.chapter-box');
-  chapterBoxes.forEach(chapterBox => {
-    chapterBox.removeEventListener('click', showVerses); // Remove old listener
-    chapterBox.addEventListener('click', () => {
-      const clickedChapter = parseInt(chapterBox.textContent.split(" ")[1]);
+    // Modify click event listener for chapter boxes
+    const chapterBoxes = document.querySelectorAll('.chapter-box');
+    chapterBoxes.forEach(chapterBox => {
+      chapterBox.removeEventListener('click', chapterClickHandler); // Remove old listener
+      chapterBox.addEventListener('click', chapterClickHandler); // Add new listener
+    });
+
+    function chapterClickHandler() {
+      const clickedChapter = parseInt(this.textContent.split(" ")[1]);
       if (clickedChapter === chapterNumber) {
-        // 3. Call showVerses with bookName and chapterNumber
         showVerses(bookName, chapterNumber);
       }
-    });
-  });
-}
+    }
+  }
 
   function createBookOptions() {
     const booksContainer = document.getElementById('books');
@@ -183,42 +190,42 @@ function navigateToVerse(bookName, chapterNumber, verseNumber) {
   }
 
   function copyVerseToPhotos(verseBox, event) {
-  html2canvas(verseBox).then(canvas => {
-    canvas.toBlob(blob => {
-      const verseText = verseBox.textContent.trim();
-      const referenceMatch = verseText.match(/\(.*:\d+\)/);
-      let reference = "";
-      if (referenceMatch) {
-        reference = referenceMatch[0].slice(1, -1);
-        // Extract chapter and verse from reference
-        const chapterVerse = reference.split(":");
-        const bookName = document.getElementById('books').textContent.trim(); // Assuming book name is displayed somewhere
-        const chapterNumber = parseInt(chapterVerse[0]);
-        const verseNumber = parseInt(chapterVerse[1]);
+    html2canvas(verseBox).then(canvas => {
+      canvas.toBlob(blob => {
+        const verseText = verseBox.textContent.trim();
+        const referenceMatch = verseText.match(/\(.*:\d+\)/);
+        let reference = "";
+        if (referenceMatch) {
+          reference = referenceMatch[0].slice(1, -1);
+          // Extract chapter and verse from reference
+          const chapterVerse = reference.split(":");
+          const bookName = document.getElementById('books').textContent.trim(); // Assuming book name is displayed somewhere
+          const chapterNumber = parseInt(chapterVerse[0]);
+          const verseNumber = parseInt(chapterVerse[1]);
 
-        // Check if clicked from search results
-        if (event.target.closest('#search-results')) {
-          navigateToVerse(bookName, chapterNumber, verseNumber);
+          // Check if clicked from search results
+          if (event && event.target.closest('#search-results')) {
+            navigateToVerse(bookName, chapterNumber, verseNumber);
+          } else {
+            // Original download functionality
+            const filename = `${reference}.png`;
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          }
         } else {
-          // Original download functionality
-          const filename = `${reference}.png`;
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = filename;
-          a.style.display = 'none';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
+          console.warn("Verse reference not found in verseBox content. Using default filename.");
+          reference = "verse_image.png";
         }
-      } else {
-        console.warn("Verse reference not found in verseBox content. Using default filename.");
-        reference = "verse_image.png";
-      }
+      });
     });
-  });
-}
+  }
 
   function showSearchModal() {
     document.getElementById('search-modal').style.display = 'flex';
