@@ -244,39 +244,56 @@ document.addEventListener("DOMContentLoaded", () => {
     showSearchModal(); // Display the search results modal
   }
 
-  function showVerseInChapter(bookName, chapterNumber) {
-    const chaptersContainer = document.getElementById('chapters');
-    const versesContainer = document.getElementById('verses');
+ function showVerseInChapter(bookName, chapterNumber, verseNumber) {
+  const chaptersContainer = document.getElementById('chapters');
+  const versesContainer = document.getElementById('verses');
 
-    chaptersContainer.innerHTML = ''; // Clear previous chapters
-    versesContainer.innerHTML = ''; // Clear previous verses
+  chaptersContainer.innerHTML = ''; // Clear previous chapters
+  versesContainer.innerHTML = ''; // Clear previous verses
 
-    // Load the specific chapter
-    const filePath = `data/${bookName}.json`;
-    fetch(filePath)
-      .then(response => response.json())
-      .then(data => {
-        const chapterData = data.chapters.find(chapter => chapter.chapter === chapterNumber);
-        if (chapterData) {
-          chapterData.verses.forEach((verse, index) => {
-            const verseBox = document.createElement('div');
-            verseBox.classList.add('verse-box', 'vignette');
-            verseBox.textContent = verse.text;
-            const color = getRandomColor();
-            verseBox.style.backgroundColor = color;
-            verseBox.style.setProperty('--vignette-color', color);
+  // Load the specific chapter
+  const filePath = `data/${bookName}.json`;
+  fetch(filePath)
+    .then(response => response.json())
+    .then(data => {
+      const chapterData = data.chapters.find(chapter => chapter.chapter === chapterNumber);
+      if (chapterData) {
+        const verse = chapterData.verses.find(v => v.verse === verseNumber);
+        if (verse) {
+          const verseBox = document.createElement('div');
+          verseBox.classList.add('verse-box', 'vignette');
+          verseBox.textContent = verse.text;
+          const color = getRandomColor();
+          verseBox.style.backgroundColor = color;
+          verseBox.style.setProperty('--vignette-color', color);
 
-            const reference = document.createElement('div');
-            reference.textContent = `(${bookName} ${chapterNumber}:${verse.verse})`;
-            reference.classList.add('reference');
-            verseBox.appendChild(reference);
+          const reference = document.createElement('div');
+          reference.textContent = `(${bookName} ${chapterNumber}:${verse.verse})`;
+          reference.classList.add('reference');
+          verseBox.appendChild(reference);
 
-            verseBox.addEventListener('click', () => copyVerseToPhotos(verseBox));
-            versesContainer.appendChild(verseBox);
-          });
+          verseBox.addEventListener('click', () => copyVerseToPhotos(verseBox));
+          versesContainer.appendChild(verseBox);
         } else {
-          console.error(`Chapter ${chapterNumber} not found in ${bookName}.json`);
+          console.error(`Verse ${verseNumber} not found in Chapter ${chapterNumber} of ${bookName}.json`);
         }
+      } else {
+        console.error(`Chapter ${chapterNumber} not found in ${bookName}.json`);
+      }
+
+      // Add RELOAD button
+      const reloadBox = document.createElement('div');
+      reloadBox.classList.add('reload-box');
+      reloadBox.textContent = 'RELOAD';
+      reloadBox.addEventListener('click', showBooksWindow);
+      versesContainer.appendChild(reloadBox);
+
+      chaptersContainer.style.display = 'none';
+      versesContainer.style.display = 'block';
+    })
+    .catch(error => console.error('Error fetching data:', error));
+}
+
 
         // Add RELOAD button
         const reloadBox = document.createElement('div');
