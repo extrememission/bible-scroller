@@ -1,21 +1,3 @@
-function navigateToVerse(bookName, chapterNumber, verseNumber) {
-  // 1. Show the chapters window
-  showChapters(bookName);
-
-  // 2. Modify click event listener for chapter boxes
-  const chapterBoxes = document.querySelectorAll('.chapter-box');
-  chapterBoxes.forEach(chapterBox => {
-    chapterBox.removeEventListener('click', showVerses); // Remove old listener
-    chapterBox.addEventListener('click', () => {
-      const clickedChapter = parseInt(chapterBox.textContent.split(" ")[1]);
-      if (clickedChapter === chapterNumber) {
-        // 3. Call showVerses with bookName and chapterNumber
-        showVerses(bookName, chapterNumber);
-      }
-    });
-  });
-}
-
 document.addEventListener("DOMContentLoaded", () => {
   const books = [
     { book: "Genesis", chapters: 50 },
@@ -91,6 +73,24 @@ document.addEventListener("DOMContentLoaded", () => {
   function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
   }
+  
+function navigateToVerse(bookName, chapterNumber, verseNumber) {
+  // 1. Show the chapters window
+  showChapters(bookName);
+
+  // 2. Modify click event listener for chapter boxes
+  const chapterBoxes = document.querySelectorAll('.chapter-box');
+  chapterBoxes.forEach(chapterBox => {
+    chapterBox.removeEventListener('click', showVerses); // Remove old listener
+    chapterBox.addEventListener('click', () => {
+      const clickedChapter = parseInt(chapterBox.textContent.split(" ")[1]);
+      if (clickedChapter === chapterNumber) {
+        // 3. Call showVerses with bookName and chapterNumber
+        showVerses(bookName, chapterNumber);
+      }
+    });
+  });
+}
 
   function createBookOptions() {
     const booksContainer = document.getElementById('books');
