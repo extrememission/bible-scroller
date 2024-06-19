@@ -189,43 +189,44 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('verses').style.display = 'none';
   }
 
-  function copyVerseToPhotos(verseBox, event) {
-    html2canvas(verseBox).then(canvas => {
-      canvas.toBlob(blob => {
-        const verseText = verseBox.textContent.trim();
-        const referenceMatch = verseText.match(/\(.*:\d+\)/);
-        let reference = "";
-        if (referenceMatch) {
-          reference = referenceMatch[0].slice(1, -1);
-          // Extract chapter and verse from reference
-          const chapterVerse = reference.split(":");
-          const bookName = document.getElementById('books').textContent.trim(); // Assuming book name is displayed somewhere
-          const chapterNumber = parseInt(chapterVerse[0]);
-          const verseNumber = parseInt(chapterVerse[1]);
+function copyVerseToPhotos(verseBox, event) {
+  html2canvas(verseBox).then(canvas => {
+    canvas.toBlob(blob => {
+      const verseText = verseBox.textContent.trim();
+      const referenceMatch = verseText.match(/\(.*:\d+\)/);
+      let reference = "";
+      if (referenceMatch) {
+        reference = referenceMatch[0].slice(1, -1);
+        // Extract chapter and verse from reference
+        const chapterVerse = reference.split(":");
+        const bookName = document.getElementById('books').textContent.trim(); // Assuming book name is displayed somewhere
+        const chapterNumber = parseInt(chapterVerse[0]);
+        const verseNumber = parseInt(chapterVerse[1]);
 
-          // Check if clicked from search results
-          if (event && event.target.closest('#search-results')) {
-            navigateToVerse(bookName, chapterNumber, verseNumber);
-          } else {
-            // Original download functionality
-            const filename = `${reference}.png`;
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-          }
+        // Check if clicked from search results
+        if (event.target.closest('#search-results')) {
+          // Navigate to the verse in context
+          navigateToVerse(bookName, chapterNumber, verseNumber);
         } else {
-          console.warn("Verse reference not found in verseBox content. Using default filename.");
-          reference = "verse_image.png";
+          // Convert to image
+          const filename = `${reference}.png`;
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
         }
-      });
+      } else {
+        console.warn("Verse reference not found in verseBox content.");
+      }
     });
-  }
+  });
+}
+
 
   function showSearchModal() {
     document.getElementById('search-modal').style.display = 'flex';
