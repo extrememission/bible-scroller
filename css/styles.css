@@ -114,7 +114,7 @@ html, body {
     font-size: 25px;
 }
 
-search-field-box input#search-field {
+.search-field-box input#search-field {
     text-align: center;
 }
 
