@@ -51,7 +51,7 @@ html, body {
     background-color: #fdf9f9;
     position: relative;
     border: none; /* Ensure no border */
-    box-shadow: none; /* Remove any box shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .reload-box {
