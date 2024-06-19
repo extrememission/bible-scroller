@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { book: "Revelation", chapters: 22 }
   ];
 
-  const colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'];
+  const colors = ['#acac9c', '#948c8c', '#c7c4cc', '#bbbcb8', '#b4b3b4'];
 
   function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function createBookOptions() {
     const booksContainer = document.getElementById('books');
     booksContainer.innerHTML = '';
-    books.forEach((book, index) => {
+    books.forEach((book) => {
       const bookBox = document.createElement('div');
       bookBox.classList.add('book-box', 'vignette');
       bookBox.textContent = book.book;
@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const bookData = data.chapters.find(chapter => chapter.chapter == chapterNumber);
         const versesContainer = document.getElementById('verses');
         versesContainer.innerHTML = '';
-        bookData.verses.forEach((verse, index) => {
+        bookData.verses.forEach((verse) => {
           const verseBox = document.createElement('div');
           verseBox.classList.add('verse-box', 'vignette');
           verseBox.textContent = `${verse.text}`;
@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('close-modal-btn').addEventListener('click', hideSearchModal);
   }
 
-  function hideSearchModal() {
+    function hideSearchModal() {
     document.getElementById('search-modal').style.display = 'none';
   }
 
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 reference.classList.add('reference');
                 verseBox.appendChild(reference);
 
-                verseBox.addEventListener('click', () => copyVerseToPhotos(verseBox));
+                verseBox.addEventListener('click', () => showVerseInChapter(book.book, chapter.chapter));
                 resultsContainer.appendChild(verseBox);
               }
             });
@@ -234,17 +234,58 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error('Error fetching data:', error));
     });
+
+    showSearchModal(); // Display the search results modal
+  }
+
+  function showVerseInChapter(bookName, chapterNumber) {
+    const chaptersContainer = document.getElementById('chapters');
+    const versesContainer = document.getElementById('verses');
+
+    chaptersContainer.innerHTML = ''; // Clear previous chapters
+    versesContainer.innerHTML = ''; // Clear previous verses
+
+    // Load the specific chapter
+    const filePath = `data/${bookName}.json`;
+    fetch(filePath)
+      .then(response => response.json())
+      .then(data => {
+        const chapterData = data.chapters.find(chapter => chapter.chapter === chapterNumber);
+        if (chapterData) {
+          chapterData.verses.forEach((verse, index) => {
+            const verseBox = document.createElement('div');
+            verseBox.classList.add('verse-box', 'vignette');
+            verseBox.textContent = verse.text;
+            const color = getRandomColor();
+            verseBox.style.backgroundColor = color;
+            verseBox.style.setProperty('--vignette-color', color);
+
+            const reference = document.createElement('div');
+            reference.textContent = `(${bookName} ${chapterNumber}:${verse.verse})`;
+            reference.classList.add('reference');
+            verseBox.appendChild(reference);
+
+            verseBox.addEventListener('click', () => copyVerseToPhotos(verseBox));
+            versesContainer.appendChild(verseBox);
+          });
+        } else {
+          console.error(`Chapter ${chapterNumber} not found in ${bookName}.json`);
+        }
+
+        // Add RELOAD button
+        const reloadBox = document.createElement('div');
+        reloadBox.classList.add('reload-box');
+        reloadBox.textContent = 'RELOAD';
+        reloadBox.addEventListener('click', showBooksWindow);
+        versesContainer.appendChild(reloadBox);
+
+        chaptersContainer.style.display = 'none';
+        versesContainer.style.display = 'block';
+      })
+      .catch(error => console.error('Error fetching data:', error));
   }
 
   document.querySelector('.begin-search-box').addEventListener('click', performSearch);
 
-  // Event listener for Enter key press in the search field
-  const searchField = document.getElementById('search-field');
-  searchField.addEventListener('keydown', function (event) {
-    if (event.keyCode === 13) { // 13 is the Enter key
-      performSearch();
-    }
-  });
-
   createBookOptions();
-});
+}); // End of DOMContentLoaded listener
