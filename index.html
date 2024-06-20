@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bible Scroller</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-    <!-- Books Viewer Section -->
     <div id="app"></div>
     <div id="books" class="container"></div>
     <div id="chapters" class="container" style="display: none;"></div>
@@ -23,7 +22,6 @@
 
     <div id="search-modal" class="modal" style="display: none;">
         <div class="modal-content">
-            <!-- Close button -->
             <span class="close-btn" id="close-modal-btn">×</span>
             <div class="search-field-box">
                 <input type="text" id="search-field" placeholder="Enter search terms" style="width: 100%; padding: 10px; font-size: 20px;">
@@ -36,7 +34,6 @@
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <script src="js/scripts.js"></script>
 
-    <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js')
