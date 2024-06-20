@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 verses.forEach((verse) => {
                     const verseBox = document.createElement('div');
                     verseBox.classList.add('verse-box', 'vignette');
-                    verseBox.textContent = `${verse.text}`;
+                    verseBox.innerHTML = `<div style="text-align: center; font-weight: bold;">${bookName} ${chapterNumber}:${verse.verse}</div>${verse.text}`;
                     const color = getRandomColor();
                     verseBox.style.backgroundColor = color;
                     verseBox.style.setProperty('--vignette-color', color);
@@ -182,11 +182,14 @@ document.addEventListener("DOMContentLoaded", () => {
                             if (verse.text.toLowerCase().includes(searchQuery)) {
                                 const resultBox = document.createElement('div');
                                 resultBox.classList.add('verse-box', 'vignette');
-                                resultBox.textContent = `${book.book} ${chapter.chapter}:${verse.verse} - ${verse.text}`;
+                                resultBox.innerHTML = `<div style="text-align: center; font-weight: bold;">${book.book} ${chapter.chapter}:${verse.verse}</div>${verse.text}`;
                                 const color = getRandomColor();
                                 resultBox.style.backgroundColor = color;
                                 resultBox.style.setProperty('--vignette-color', color);
-                                resultBox.addEventListener('click', () => showVerses(book.book, chapter.chapter));
+                                resultBox.addEventListener('click', () => {
+                                    closeSearchModal();
+                                    showVerses(book.book, chapter.chapter);
+                                });
                                 resultsContainer.appendChild(resultBox);
                             }
                         });
