@@ -120,35 +120,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function showVerses(bookName, chapterNumber) {
-        const filePath = `data/${bookName}.json`;
-        fetch(filePath)
-            .then(response => response.json())
-            .then(data => {
-                const bookData = data.chapters.find(chapter => chapter.chapter == chapterNumber);
-                const versesContainer = document.getElementById('verses');
-                versesContainer.innerHTML = '';
-                bookData.verses.forEach((verse) => {
-                    const verseBox = document.createElement('div');
-                    verseBox.classList.add('verse-box', 'vignette');
-                    verseBox.textContent = `${verse.text}`;
-                    const color = getRandomColor();
-                    verseBox.style.backgroundColor = color;
-                    verseBox.style.setProperty('--vignette-color', color);
-                    versesContainer.appendChild(verseBox);
-                });
+  const filePath = `data/${bookName}.json`;
+  fetch(filePath)
+    .then(response => response.json())
+    .then(data => {
+      const chapterData = data.chapters.find(chapter => chapter.chapter == chapterNumber);
+      const verses = chapterData.verses;
 
-                const reloadBox = document.createElement('div');
-                reloadBox.classList.add('reload-box');
-                reloadBox.textContent = 'RELOAD';
-                reloadBox.addEventListener('click', showBooksWindow);
-                versesContainer.appendChild(reloadBox);
+      const versesContainer = document.getElementById('verses');
+      versesContainer.innerHTML = '';
 
-                versesContainer.scrollTop = 0;
-                document.getElementById('chapters').style.display = 'none';
-                versesContainer.style.display = 'block';
-            })
-            .catch(error => console.error('Error fetching verses:', error));
-    }
+      verses.forEach((verse) => {
+        const verseBox = document.createElement('div');
+        verseBox.classList.add('verse-box', 'vignette');
+        verseBox.textContent = `${verse.text}`;
+        const color = getRandomColor();
+        verseBox.style.backgroundColor = color;
+        verseBox.style.setProperty('--vignette-color', color);
+        versesContainer.appendChild(verseBox);
+      });
+
+      const reloadBox = document.createElement('div');
+      reloadBox.classList.add('reload-box');
+      reloadBox.textContent = 'RELOAD';
+      reloadBox.addEventListener('click', showBooksWindow);
+      versesContainer.appendChild(reloadBox);
+
+      versesContainer.scrollTop = 0;
+      document.getElementById('chapters').style.display = 'none';
+      versesContainer.style.display = 'block';
+    })
+    .catch(error => console.error('Error fetching verses:', error));
+}
 
     function showSearchModal() {
         document.getElementById('search-modal').style.display = 'flex';
