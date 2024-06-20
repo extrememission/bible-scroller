@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 verses.forEach((verse) => {
                     const verseBox = document.createElement('div');
                     verseBox.classList.add('verse-box', 'vignette');
-                    verseBox.innerHTML = `<div style="text-align: center; font-weight: bold;">${bookName} ${chapterNumber}:${verse.verse}</div>${verse.text}`;
+                    verseBox.innerHTML = `${verse.text}<div style="text-align: center;">${bookName} ${chapterNumber}:${verse.verse}</div>`;
                     const color = getRandomColor();
                     verseBox.style.backgroundColor = color;
                     verseBox.style.setProperty('--vignette-color', color);
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             if (verse.text.toLowerCase().includes(searchQuery)) {
                                 const resultBox = document.createElement('div');
                                 resultBox.classList.add('verse-box', 'vignette');
-                                resultBox.innerHTML = `<div style="text-align: center; font-weight: bold;">${book.book} ${chapter.chapter}:${verse.verse}</div>${verse.text}`;
+                                resultBox.innerHTML = `${verse.text}<div style="text-align: center;">${book.book} ${chapter.chapter}:${verse.verse}</div>`;
                                 const color = getRandomColor();
                                 resultBox.style.backgroundColor = color;
                                 resultBox.style.setProperty('--vignette-color', color);
