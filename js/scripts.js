@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             const color = getRandomColor();
                             resultBox.style.backgroundColor = color;
                             resultBox.style.setProperty('--vignette-color', color);
-                            resultBox.addEventListener('click', () => showVerses(book.book, chapter.chapter));
+                            resultBox.addEventListener('click', () => { showVerses(book.book, chapter.chapter); closeSearchModal(); });
                             resultsContainer.appendChild(resultBox);
                         }
                     });
