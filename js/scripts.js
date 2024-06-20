@@ -167,37 +167,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function searchScriptures() {
-        const searchField = document.getElementById('search-field');
-        const searchQuery = searchField.value.toLowerCase();
-        const resultsContainer = document.getElementById('search-results');
-        resultsContainer.innerHTML = '';
+    const searchField = document.getElementById('search-field');
+    const searchQuery = searchField.value.toLowerCase();
+    const resultsContainer = document.getElementById('search-results');
+    resultsContainer.innerHTML = '';
 
-        books.forEach(book => {
-            const filePath = `data/${book.book}.json`;
-            fetch(filePath)
-                .then(response => response.json())
-                .then(data => {
-                    data.chapters.forEach(chapter => {
-                        chapter.verses.forEach(verse => {
-                            if (verse.text.toLowerCase().includes(searchQuery)) {
-                                const resultBox = document.createElement('div');
-                                resultBox.classList.add('verse-box', 'vignette');
-                                resultBox.innerHTML = `${verse.text}<div style="text-align: center;">${book.book} ${chapter.chapter}:${verse.verse}</div>`;
-                                const color = getRandomColor();
-                                resultBox.style.backgroundColor = color;
-                                resultBox.style.setProperty('--vignette-color', color);
-                                resultBox.addEventListener('click', () => {
-                                    closeSearchModal();
-                                    showVerses(book.book, chapter.chapter);
-                                });
-                                resultsContainer.appendChild(resultBox);
-                            }
-                        });
+    books.forEach(book => {
+        const filePath = `data/${book.book}.json`;
+        fetch(filePath)
+            .then(response => response.json())
+            .then(data => {
+                data.chapters.forEach(chapter => {
+                    chapter.verses.forEach(verse => {
+                        if (verse.text.toLowerCase().includes(searchQuery)) {
+                            const resultBox = document.createElement('div');
+                            resultBox.classList.add('verse-box', 'vignette');
+                            resultBox.textContent = `${book.book} ${chapter.chapter}:${verse.verse} - ${verse.text}`;
+                            const color = getRandomColor();
+                            resultBox.style.backgroundColor = color;
+                            resultBox.style.setProperty('--vignette-color', color);
+                            resultBox.addEventListener('click', () => showVerses(book.book, chapter.chapter));
+                            resultsContainer.appendChild(resultBox);
+                        }
                     });
-                })
-                .catch(error => console.error('Error searching verses:', error));
-        });
-    }
+                });
+            })
+            .catch(error => console.error('Error searching verses:', error));
+    });
+
+    // Hide unnecessary elements
+    document.getElementById('books').style.display = 'none';
+    document.getElementById('chapters').style.display = 'none';
+    document.getElementById('verses').style.display = 'none';
+    document.getElementById('search-box').style.display = 'none';
+}
 
     document.getElementById('close-modal-btn').addEventListener('click', closeSearchModal);
     document.querySelector('.begin-search-box').addEventListener('click', searchScriptures);
