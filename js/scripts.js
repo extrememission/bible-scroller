@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const reloadBox = document.createElement('div');
         reloadBox.classList.add('reload-box');
         reloadBox.textContent = 'RELOAD';
-        reloadBox.addEventListener('click', showBooksWindow);
+		reloadBox.addEventListener('click', () => location.reload());
         chaptersContainer.appendChild(reloadBox);
 
         chaptersContainer.scrollTop = 0;
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const reloadBox = document.createElement('div');
                 reloadBox.classList.add('reload-box');
                 reloadBox.textContent = 'RELOAD';
-                reloadBox.addEventListener('click', showBooksWindow);
+				reloadBox.addEventListener('click', () => location.reload());
                 versesContainer.appendChild(reloadBox);
 
                 versesContainer.scrollTop = 0;
