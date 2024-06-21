@@ -158,6 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function closeSearchModal() {
         document.getElementById('search-modal').style.display = 'none';
+	document.getElementById('books').style.display = 'block';
+
     }
 
     function showBooksWindow() {
