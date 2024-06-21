@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const reloadBox = document.createElement('div');
                 reloadBox.classList.add('reload-box');
-                reloadBox.textContent = 'RELOAD';
+                reloadBox.textContent = 'Home';
 				reloadBox.addEventListener('click', () => location.reload());
                 versesContainer.appendChild(reloadBox);
 
