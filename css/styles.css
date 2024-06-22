@@ -140,5 +140,6 @@ html, body {
 #search-box {
     border: none !important;
     outline: none !important;
+    color: red;
 }
 
