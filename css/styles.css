@@ -39,11 +39,6 @@ html, body {
     justify-content: center;
 }
 
-#search-box {
-    border: none;
-    outline: none;
-}
-
 .book-box, .chapter-box, .verse-box, .search-box {
     display: block;
     flex-direction: column;
@@ -141,3 +136,9 @@ html, body {
     border-radius: 10px; /* Ensure the vignette has rounded corners */
     z-index: -1;
 }
+
+#search-box {
+    border: none !important;
+    outline: none !important;
+}
+
