@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const reloadBox = document.createElement('div');
         reloadBox.classList.add('reload-box');
-        reloadBox.textContent = 'RELOAD';
+        reloadBox.textContent = 'Home';
 		reloadBox.addEventListener('click', () => location.reload());
         chaptersContainer.appendChild(reloadBox);
 
@@ -157,16 +157,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function closeSearchModal() {
-    const versesContainer = document.getElementById('verses');
-    if (versesContainer.style.display !== 'none') {
         document.getElementById('search-modal').style.display = 'none';
-        return; // Don't switch to showing books if verses are displayed
+		location.reload(); // Add this line to reload the page
     }
-    
-    document.getElementById('search-modal').style.display = 'none';
-    showBooksWindow(); // Show books after closing modal only if verses are not displayed
-}
-
 
     function showBooksWindow() {
         document.getElementById('books').style.display = 'block';
