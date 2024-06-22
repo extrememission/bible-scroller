@@ -42,6 +42,7 @@ html, body {
 #search-box {
     border: none;
     outline: none;
+}
 
 .book-box, .chapter-box, .verse-box, .search-box {
     display: block;
