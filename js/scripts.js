@@ -156,9 +156,25 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('search-modal').style.display = 'flex';
     }
 
-    function closeSearchModal() {
-    location.reload();
+   // Keep your closeSearchModal function as it is
+function closeSearchModal() {
+    document.getElementById('search-modal').style.display = 'none';
+    document.getElementById('books').style.display = 'block';
+
+    const booksContainer = document.getElementById('books');
+    const searchBox = document.getElementById('search-box');
+    
+    // Reappend the search box to ensure it's visible
+    if (!booksContainer.contains(searchBox)) {
+        booksContainer.appendChild(searchBox);
+    }
 }
+
+// Add a separate event listener for the X button in the search modal
+document.getElementById('close-modal-btn').addEventListener('click', () => {
+    location.reload();
+});
+
 
     function showBooksWindow() {
         document.getElementById('books').style.display = 'block';
