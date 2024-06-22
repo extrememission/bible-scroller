@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const reloadBox = document.createElement('div');
         reloadBox.classList.add('reload-box');
-        reloadBox.textContent = 'Home';
+        reloadBox.textContent = 'RELOAD';
 		reloadBox.addEventListener('click', () => location.reload());
         chaptersContainer.appendChild(reloadBox);
 
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const reloadBox = document.createElement('div');
                 reloadBox.classList.add('reload-box');
-                reloadBox.textContent = 'Home';
+                reloadBox.textContent = 'RELOAD';
 				reloadBox.addEventListener('click', () => location.reload());
                 versesContainer.appendChild(reloadBox);
 
@@ -156,24 +156,16 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById('search-modal').style.display = 'flex';
     }
 
-   // Keep your closeSearchModal function as it is
-function closeSearchModal() {
-    document.getElementById('search-modal').style.display = 'none';
-    document.getElementById('books').style.display = 'block';
-
-    const booksContainer = document.getElementById('books');
-    const searchBox = document.getElementById('search-box');
-    
-    // Reappend the search box to ensure it's visible
-    if (!booksContainer.contains(searchBox)) {
-        booksContainer.appendChild(searchBox);
+    function closeSearchModal() {
+    const versesContainer = document.getElementById('verses');
+    if (versesContainer.style.display !== 'none') {
+        document.getElementById('search-modal').style.display = 'none';
+        return; // Don't switch to showing books if verses are displayed
     }
+    
+    document.getElementById('search-modal').style.display = 'none';
+    showBooksWindow(); // Show books after closing modal only if verses are not displayed
 }
-
-// Add a separate event listener for the X button in the search modal
-document.getElementById('close-modal-btn').addEventListener('click', () => {
-    location.reload();
-});
 
 
     function showBooksWindow() {
