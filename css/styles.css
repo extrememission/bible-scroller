@@ -39,7 +39,7 @@ html, body {
     justify-content: center;
 }
 
-.book-box, .chapter-box, .verse-box, .search-box {
+.book-box, .chapter-box, .verse-box {
     display: block;
     flex-direction: column;
     align-items: center;
@@ -138,8 +138,17 @@ html, body {
 }
 
 #search-box {
-    border: none !important;
-    outline: none !important;
-    color: red;
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10;
+    cursor: pointer;
+    background-color: #FFFFFF;
+    position: relative;
+    border: none; /* Ensure no border */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
