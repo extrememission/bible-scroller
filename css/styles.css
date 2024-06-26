@@ -151,17 +151,17 @@ html, body {
     border: none; /* Ensure no border */
 }
 
-/* Add this at the end of your CSS file */
+/* Verse box */
 .verse-box {
-    min-height: calc(100vh - 40px); /* Leave some space around the edges */
-    width: calc(100vw - 40px); /* Leave some space around the edges */
+    width: 85vw;
+    height: 85vw;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px; /* Adjust padding as needed */
+    margin: auto;
+    padding: 20px;
     box-sizing: border-box;
-    margin: 20px; /* Margin to ensure space around the box */
 }
 
 /* Responsive font size */
