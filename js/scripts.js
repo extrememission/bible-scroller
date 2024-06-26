@@ -138,6 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
           verseBox.style.setProperty('--vignette-color', color);
 
           versesContainer.appendChild(verseBox);
+          adjustFontSize(verseBox);
         });
 
         const reloadBox = document.createElement('div');
@@ -157,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const textToCopy = clickedElement.textContent;
             navigator.clipboard.writeText(textToCopy)
               .then(() => alert('Verse copied to clipboard'))
+                            .then(() => alert('Verse copied to clipboard'))
               .catch(err => console.error('Failed to copy text: ', err));
           }
         });
@@ -223,4 +225,30 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector('.begin-search-box').addEventListener('click', searchScriptures);
 
   createBookOptions();
+
+  // Function to adjust font size dynamically based on container size
+  function adjustFontSize(verseBox) {
+    const content = verseBox.firstChild; // Assuming the first child is the text content
+
+    // Reset font size to default before recalculating
+    content.style.fontSize = '';
+
+    // Calculate ideal font size based on available space
+    const boxHeight = verseBox.clientHeight;
+    const contentHeight = content.clientHeight;
+
+    if (contentHeight > boxHeight) {
+      // Calculate font size to fit within box height
+      const fontSize = Math.floor(parseInt(window.getComputedStyle(verseBox).fontSize) * (boxHeight / contentHeight) * 0.85);
+      content.style.fontSize = `${fontSize}px`;
+    }
+  }
+
+  // Adjust font size on window resize for responsiveness
+  window.addEventListener('resize', () => {
+    const verseBoxes = document.querySelectorAll('.verse-box');
+    verseBoxes.forEach(verseBox => adjustFontSize(verseBox));
+  });
 });
+
+
