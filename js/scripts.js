@@ -136,6 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const color = getRandomColor();
           verseBox.style.backgroundColor = color;
           verseBox.style.setProperty('--vignette-color', color);
+
           versesContainer.appendChild(verseBox);
         });
 
@@ -148,6 +149,20 @@ document.addEventListener("DOMContentLoaded", () => {
         versesContainer.scrollTop = 0;
         document.getElementById('chapters').style.display = 'none';
         versesContainer.style.display = 'block';
+
+        // Event delegation for handling click on any verseBox
+        versesContainer.addEventListener('click', (event) => {
+          const clickedElement = event.target.closest('.verse-box');
+          if (clickedElement) {
+            const textToCopy = clickedElement.textContent;
+            navigator.clipboard.writeText(textToCopy)
+              .then(() => alert('Verse copied to clipboard'))
+              .catch(err => console.error('Failed to copy text: ', err));
+
+            // Scroll the clicked verse to the center of the versesContainer
+            clickedElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          }
+        });
       })
       .catch(error => console.error('Error fetching verses:', error));
   }
