@@ -158,9 +158,6 @@ document.addEventListener("DOMContentLoaded", () => {
             navigator.clipboard.writeText(textToCopy)
               .then(() => alert('Verse copied to clipboard'))
               .catch(err => console.error('Failed to copy text: ', err));
-
-            // Scroll the clicked verse to the center of the versesContainer
-            clickedElement.scrollIntoView({ block: 'center', behavior: 'smooth' });
           }
         });
       })
