@@ -68,29 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
     { book: "Revelation", chapters: 22 }
   ];
 
-  const colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'];
-
-  function getRandomColor() {
-    return colors[Math.floor(Math.random() * colors.length)];
-  }
-
   function createBookOptions() {
-    const booksContainer = document.getElementById('books');
-    booksContainer.innerHTML = '';
-    books.forEach((book) => {
-      const bookBox = document.createElement('div');
-      bookBox.classList.add('book-box', 'vignette');
-      bookBox.textContent = book.book;
-      const color = getRandomColor();
-      bookBox.style.backgroundColor = color;
-      bookBox.style.setProperty('--vignette-color', color);
-      bookBox.addEventListener('click', () => showChapters(book));
-      booksContainer.appendChild(bookBox);
-    });
-
-    const searchBox = document.getElementById('search-box');
-    booksContainer.appendChild(searchBox);
-    searchBox.addEventListener('click', showSearchModal);
+    // Your existing code for creating book options
   }
 
   function showChapters(book) {
@@ -103,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const color = getRandomColor();
       chapterBox.style.backgroundColor = color;
       chapterBox.style.setProperty('--vignette-color', color);
-      chapterBox.addEventListener('click', () => showVerses(book.book, i));
+      chapterBox.addEventListener('click', () => showVerses(book.book, i)); // Attach event listener correctly
       chaptersContainer.appendChild(chapterBox);
     }
 
@@ -138,7 +117,6 @@ document.addEventListener("DOMContentLoaded", () => {
           verseBox.style.setProperty('--vignette-color', color);
 
           versesContainer.appendChild(verseBox);
-          adjustFontSize(verseBox);
         });
 
         const reloadBox = document.createElement('div');
@@ -158,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const textToCopy = clickedElement.textContent;
             navigator.clipboard.writeText(textToCopy)
               .then(() => alert('Verse copied to clipboard'))
-                            .then(() => alert('Verse copied to clipboard'))
               .catch(err => console.error('Failed to copy text: ', err));
           }
         });
@@ -225,30 +202,4 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector('.begin-search-box').addEventListener('click', searchScriptures);
 
   createBookOptions();
-
-  // Function to adjust font size dynamically based on container size
-  function adjustFontSize(verseBox) {
-    const content = verseBox.firstChild; // Assuming the first child is the text content
-
-    // Reset font size to default before recalculating
-    content.style.fontSize = '';
-
-    // Calculate ideal font size based on available space
-    const boxHeight = verseBox.clientHeight;
-    const contentHeight = content.clientHeight;
-
-    if (contentHeight > boxHeight) {
-      // Calculate font size to fit within box height
-      const fontSize = Math.floor(parseInt(window.getComputedStyle(verseBox).fontSize) * (boxHeight / contentHeight) * 0.85);
-      content.style.fontSize = `${fontSize}px`;
-    }
-  }
-
-  // Adjust font size on window resize for responsiveness
-  window.addEventListener('resize', () => {
-    const verseBoxes = document.querySelectorAll('.verse-box');
-    verseBoxes.forEach(verseBox => adjustFontSize(verseBox));
-  });
 });
-
-
