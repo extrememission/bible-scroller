@@ -151,6 +151,7 @@ html, body {
     border: none; /* Ensure no border */
 }
 
+/* Add this at the end of your CSS file */
 .verse-box {
     height: 100vh;
     width: 100vw;
@@ -158,7 +159,7 @@ html, body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 20px;
+    padding: 20px; /* Adjust padding as needed */
     box-sizing: border-box;
+    font-size: 5vw; /* Adjust font size as needed */
 }
-
