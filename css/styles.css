@@ -161,5 +161,21 @@ html, body {
     text-align: center;
     padding: 20px; /* Adjust padding as needed */
     box-sizing: border-box;
-    font-size: 5vw; /* Adjust font size as needed */
+}
+
+/* Responsive font size */
+.verse-box {
+    font-size: 5vw; /* Adjust font size for large screens */
+}
+
+@media (max-width: 768px) {
+    .verse-box {
+        font-size: 8vw; /* Adjust font size for tablets and small devices */
+    }
+}
+
+@media (max-width: 480px) {
+    .verse-box {
+        font-size: 10vw; /* Adjust font size for mobile devices */
+    }
 }
