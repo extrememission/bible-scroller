@@ -151,3 +151,14 @@ html, body {
     border: none; /* Ensure no border */
 }
 
+.verse-box {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
