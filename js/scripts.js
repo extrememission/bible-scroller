@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     { book: "Revelation", chapters: 22 }
   ];
 
-  const colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'];
+  const colors = ['#FF5733', '#9B59B6', '#00C3FF', '#FF00FB', '#38FF00'];
 
   function getRandomColor() {
     return colors[Math.floor(Math.random() * colors.length)];
