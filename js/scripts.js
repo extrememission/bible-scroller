@@ -68,6 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
     { book: "Revelation", chapters: 22 }
   ];
 
+  document.addEventListener("DOMContentLoaded", () => {
+  const books = [
+    { book: "Genesis", chapters: 50 },
+    { book: "Exodus", chapters: 40 },
+    //... all other books
+    { book: "Revelation", chapters: 22 }
+  ];
+
   const colors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'];
 
   function getRandomColor() {
@@ -84,7 +92,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const color = getRandomColor();
       bookBox.style.backgroundColor = color;
       bookBox.style.setProperty('--vignette-color', color);
-      bookBox.addEventListener('click', () => showChapters(book));
+      bookBox.addEventListener('click', () => {
+        playClickSound();
+        bookBox.classList.add('snap');
+        setTimeout(() => bookBox.classList.remove('snap'), 300);
+        showChapters(book);
+      });
       booksContainer.appendChild(bookBox);
     });
 
@@ -103,7 +116,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const color = getRandomColor();
       chapterBox.style.backgroundColor = color;
       chapterBox.style.setProperty('--vignette-color', color);
-      chapterBox.addEventListener('click', () => showVerses(book.book, i));
+      chapterBox.addEventListener('click', () => {
+        playClickSound();
+        chapterBox.classList.add('snap');
+        setTimeout(() => chapterBox.classList.remove('snap'), 300);
+        showVerses(book.book, i);
+      });
       chaptersContainer.appendChild(chapterBox);
     }
 
@@ -136,6 +154,11 @@ document.addEventListener("DOMContentLoaded", () => {
           const color = getRandomColor();
           verseBox.style.backgroundColor = color;
           verseBox.style.setProperty('--vignette-color', color);
+          verseBox.addEventListener('click', () => {
+            playClickSound();
+            verseBox.classList.add('snap');
+            setTimeout(() => verseBox.classList.remove('snap'), 300);
+          });
           versesContainer.appendChild(verseBox);
         });
 
@@ -150,6 +173,11 @@ document.addEventListener("DOMContentLoaded", () => {
         versesContainer.style.display = 'block';
       })
       .catch(error => console.error('Error fetching verses:', error));
+  }
+
+  function playClickSound() {
+    const clickSound = new Audio('path/to/click-sound.mp3');
+    clickSound.play();
   }
 
   function showSearchModal() {
@@ -191,7 +219,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 const color = getRandomColor();
                 resultBox.style.backgroundColor = color;
                 resultBox.style.setProperty('--vignette-color', color);
-                resultBox.addEventListener('click', () => { showVerses(book.book, chapter.chapter); closeSearchModal(); });
+                resultBox.addEventListener('click', () => {
+                  showVerses(book.book, chapter.chapter);
+                  closeSearchModal();
+                });
                 resultsContainer.appendChild(resultBox);
               }
             });
