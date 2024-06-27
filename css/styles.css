@@ -136,3 +136,14 @@ html, body {
     border-radius: 10px; /* Ensure the vignette has rounded corners */
     z-index: -1;
 }
+
+@keyframes snap-animation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.snap {
+  animation: snap-animation 0.3s ease-in-out;
+}
+
