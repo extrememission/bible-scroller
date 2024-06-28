@@ -17,6 +17,11 @@ html, body {
     height: 100%;
 }
 
+html {
+    scroll-snap-type: y mandatory; /* Enable vertical scroll snapping */
+}
+
+
 #app {
     display: block;
     align-items: center;
