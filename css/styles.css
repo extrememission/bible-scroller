@@ -29,11 +29,8 @@ html {
     overflow-y: auto; /* Enable vertical scrolling */
     white-space: nowrap; /* Keep items in a row */
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    padding: 10px;
-    margin: 10px;
-    max-width: none;
 }
 
 /* Specify animation for items */
@@ -55,13 +52,6 @@ html {
 }
 
 /* Additional styling for specific elements */
-
-/* Styles for books, chapters, and verses */
-#books, #chapters, #verses {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
 
 /* Modal styles */
 .modal {
