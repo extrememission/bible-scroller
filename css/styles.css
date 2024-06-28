@@ -24,6 +24,7 @@ html, body {
     background-color: #FFFFFF;
     scroll-snap-type: y mandatory; /* Added scroll-snap */
     overflow-y: scroll; /* Ensure vertical scrolling */
+    height: 100vh; /* Ensure the app container takes full viewport height */
 }
 
 .container {
@@ -33,6 +34,7 @@ html, body {
     padding: 10px;
     margin: 10px;
     max-width: none;
+    height: 100vh; /* Ensure each container takes full viewport height */
     scroll-snap-align: start; /* Added scroll-snap alignment */
 }
 
@@ -62,7 +64,7 @@ html, body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 50px;
+    height: 100vh; /* Ensure the reload box takes full viewport height */
     margin: 20px 0;
     background-color: #FFFFFF;
     color: black;
