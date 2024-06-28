@@ -18,7 +18,8 @@ html, body {
 }
 
 #app {
-    display: block;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
     background-color: #FFFFFF;
@@ -28,13 +29,12 @@ html, body {
 }
 
 .container {
-    display: block;
+    width: 100%;
+    height: 100vh; /* Ensure each container takes full viewport height */
+    display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 10px;
-    margin: 10px;
-    max-width: none;
-    height: 100vh; /* Ensure each container takes full viewport height */
+    align-items: center;
     scroll-snap-align: start; /* Added scroll-snap alignment */
 }
 
@@ -45,7 +45,7 @@ html, body {
 }
 
 .book-box, .chapter-box, .verse-box {
-    display: block;
+    display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
