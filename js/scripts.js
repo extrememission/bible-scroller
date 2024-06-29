@@ -136,6 +136,13 @@ document.addEventListener("DOMContentLoaded", () => {
           const color = getRandomColor();
           verseBox.style.backgroundColor = color;
           verseBox.style.setProperty('--vignette-color', color);
+
+          // Highlight the searched term if found
+          if (verse.text.toLowerCase().includes(searchQuery)) {
+            verseBox.style.fontWeight = 'bold';
+            verseBox.style.color = 'blue'; // Change color as needed
+          }
+
           versesContainer.appendChild(verseBox);
         });
 
@@ -145,13 +152,18 @@ document.addEventListener("DOMContentLoaded", () => {
         reloadBox.addEventListener('click', () => location.reload());
         versesContainer.appendChild(reloadBox);
 
-        versesContainer.scrollTop = 0;
-        document.getElementById('chapters').style.display = 'none';
+        // Center the selected verse
+        const selectedVerse = document.querySelector(`.verse-box:contains(${searchQuery})`);
+        if (selectedVerse) {
+          selectedVerse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
         versesContainer.style.display = 'block';
+        document.getElementById('chapters').style.display = 'none';
       })
       .catch(error => console.error('Error fetching verses:', error));
-  }
-
+}
+  
   function showSearchModal() {
     document.getElementById('search-modal').style.display = 'flex';
   }
