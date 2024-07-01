@@ -151,7 +151,7 @@ html, body {
     border: none; /* Ensure no border */
 }
 mark {
-  background-color: yellow; /* Change this to your desired highlight color */
+  background-color: #FDFFD1; /* Change this to your desired highlight color */
   color: black; /* Change this to your desired text color */
   padding: 0.2em;
   border-radius: 5px; /* Optional: Add rounded corners */
